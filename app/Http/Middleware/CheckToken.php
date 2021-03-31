@@ -16,6 +16,10 @@ class CheckToken
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->token != "123456") {
+            return redirect('/');
+        }
+
         return $next($request);
     }
 }
