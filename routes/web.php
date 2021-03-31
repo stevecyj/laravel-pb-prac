@@ -13,9 +13,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+/*
+|--------------------------------------------------------------------------
+| page 前台,not login
+|--------------------------------------------------------------------------
+| products
+| products/search
+| users
+| carts/index
+|
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| page 前台,login
+|--------------------------------------------------------------------------
+| orders
+| profiles
+| carts/purchase
+|
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| controls 後台,admin
+|--------------------------------------------------------------------------
+| controls/products
+| controls/orders
+| controls/brands
+| controls/categories
+| controls/carts
+|
+*/
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
