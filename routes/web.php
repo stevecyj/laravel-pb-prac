@@ -2,6 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+
+// use App\Http\Controllers\Controls\PageController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +37,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', [PageController::class,'home']);
 
 /*
 |--------------------------------------------------------------------------
@@ -49,9 +59,14 @@ use Illuminate\Support\Facades\Route;
 | controls/brands
 | controls/categories
 | controls/carts
+| controls/pages
+| controls/users
 |
 */
 
+Route::prefix('controls')->name('controls.')->group(function () {
+    Route::get('/', ['App\Http\Controllers\Controls\PageController','home'])->name('home');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
