@@ -8,6 +8,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MemberController;
+use App\Http\Controllers\MemberSessionController;
 
 // use App\Http\Controllers\Controls\PageController;
 
@@ -64,8 +66,17 @@ Route::get('/', [PageController::class,'home']);
 |
 */
 
-Route::prefix('controls')->name('controls.')->group(function () {
+Route::prefix('controls')->name('controls.')->middleware(['auth'])->group(function () {
     Route::get('/', ['App\Http\Controllers\Controls\PageController','home'])->name('home');
+});
+
+Route::prefix('members')->name('members.')->group(function () {
+    Route::resource('/', MemberController::class)->only(['create','store']);
+    Route::delete('session', [MemberSessionController::class,'destroy'])->name('session.destroy');
+    Route::resource('session', MemberSessionController::class)->only([
+        'create',
+        'store',
+        ]);
 });
 
 Route::get('/dashboard', function () {
