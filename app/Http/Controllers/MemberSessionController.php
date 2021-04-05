@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Member;
+use App\Libraries\MemberAuth;
 
 class MemberSessionController extends Controller
 {
@@ -74,11 +75,18 @@ class MemberSessionController extends Controller
         // var_dump($member);
         // dd($member);
 
-        if(!empty($member)){
-            session(['memberId' => $member->email]);
-        }
-        dump(session()->all());
+        // write into session
+        // if(!empty($member)){
+        //     session(['memberId' => $member->email]);
+        // }
+        // dump(session()->all());
         // dd(session()->all());
+
+        // from Libraries
+        MemberAuth::logIn(
+            $request->email,
+            $request->password
+        );
 
         // return redirect()->route('members.session.create');
 
@@ -88,11 +96,14 @@ class MemberSessionController extends Controller
 
     public function destroy(Request $request)
     {
-        // session()->save();
-        session()->forget('memberId');
+        // delete session
+        // session()->forget('memberId');
         // session()->flush();
-        dump(session()->all());
+        // dump(session()->all());
         // dump('123');
+
+        // from Libraries
+        MemberAuth::logOut();
 
         // return redirect('/')->route('members.session.create');
     }
