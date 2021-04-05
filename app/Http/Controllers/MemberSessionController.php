@@ -26,23 +26,42 @@ class MemberSessionController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | array
+        | array，存取 session
         |--------------------------------------------------------------------------
         |
         */
 
-        var_dump(session('user.teams'));
-        echo "<hr/>";
+        // var_dump(session('user.teams'));
+        // echo "<hr/>";
 
-        session()->put('user.teams',[]);
-        var_dump(session('user.teams'));
-        echo "<hr/>";
+        // session()->put('user.teams',[]);
+        // var_dump(session('user.teams'));
+        // echo "<hr/>";
 
-        session()->push('user.teams','developers');
-        var_dump(session('user.teams'));
-        echo "<hr/>";
+        // session()->push('user.teams','developers');
+        // var_dump(session('user.teams'));
+        // echo "<hr/>";
 
-        // return view('members.logIn');
+        // $value = session()->pull('user.teams','default');
+        // var_dump($value);
+        // echo "<hr/>";
+        // var_dump(session('user.teams'));
+
+        /*
+        |--------------------------------------------------------------------------
+        | array，存取 session
+        |--------------------------------------------------------------------------
+        |
+        */
+
+        $member = null;
+        if(session()->exists('memberId')){
+            $member=Member::find(session('memberId'));
+        }
+
+        return view('members.logIn',[
+            'member' => $member
+        ]);
     }
 
     public function store(Request $request)
@@ -53,7 +72,15 @@ class MemberSessionController extends Controller
         ])->first();
 
         // var_dump($member);
-        dd($member);
+        // dd($member);
+
+        if(!empty($member)){
+            session(['memberId' => $member->id]);
+        }
+        dd(session()->all());
+        return redirect()->route('members.session.create');
+
+
         // return redirect('/');
     }
 
