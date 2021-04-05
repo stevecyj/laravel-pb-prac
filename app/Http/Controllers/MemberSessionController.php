@@ -75,10 +75,12 @@ class MemberSessionController extends Controller
         // dd($member);
 
         if(!empty($member)){
-            session(['memberId' => $member->id]);
+            session(['memberId' => $member->email]);
         }
-        dd(session()->all());
-        return redirect()->route('members.session.create');
+        dump(session()->all());
+        // dd(session()->all());
+
+        // return redirect()->route('members.session.create');
 
 
         // return redirect('/');
@@ -86,6 +88,12 @@ class MemberSessionController extends Controller
 
     public function destroy(Request $request)
     {
-        return redirect('/');
+        // session()->save();
+        session()->forget('memberId');
+        // session()->flush();
+        dump(session()->all());
+        // dump('123');
+
+        // return redirect('/')->route('members.session.create');
     }
 }
