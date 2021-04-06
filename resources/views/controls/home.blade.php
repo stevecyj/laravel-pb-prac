@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Home</h1>
+<h1>Controls Home</h1>
 
 @endsection
 

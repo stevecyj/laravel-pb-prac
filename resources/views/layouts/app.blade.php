@@ -10,13 +10,28 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     </head>
     <body>
-        <div><a href="{{ route('members.session.create') }}">Log in</a></div>
+        {{-- change from welcom blace --}}
+        @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+
+        {{-- <div><a href="{{ route('members.session.create') }}">Log in</a></div>
         <div><a href="{{ route('members.create') }}">Register</a></div>
         <form method="POST" action="{{ route('members.session.destroy') }}">
             @csrf
             @method('DELETE')
             <button type="submit">Log out</button>
-        </form>
+        </form> --}}
         <hr />
         @yield('content')
         @section('inline_js')

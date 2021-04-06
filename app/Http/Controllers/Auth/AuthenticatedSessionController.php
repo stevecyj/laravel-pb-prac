@@ -28,7 +28,20 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        // $user = Auth::guard('web')->user();
+        // dump($user);
+
         $request->authenticate();
+
+
+        $user = Auth::guard('web')->user();
+
+        if ($user->is_admin) {
+            Auth::guard('admin')->login($user);
+        }
+
+        // Auth::guard('admin')->login($user);
+        // dump($user);
 
         $request->session()->regenerate();
 

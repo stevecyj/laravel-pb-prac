@@ -14,6 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
+        // api 內容是 json，防止 api 吐回 html
         if (! $request->expectsJson()) {
             return route('login');
         }

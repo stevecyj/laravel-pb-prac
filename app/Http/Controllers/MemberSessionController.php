@@ -56,11 +56,13 @@ class MemberSessionController extends Controller
         */
 
         $member = null;
-        if(session()->exists('memberId')){
+        if (session()->exists('memberId')) {
             $member=Member::find(session('memberId'));
         }
 
-        return view('members.logIn',[
+        dd(session()->all());
+
+        return view('members.logIn', [
             'member' => $member
         ]);
     }

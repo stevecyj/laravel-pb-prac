@@ -8,6 +8,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\MemberSessionController;
@@ -67,7 +68,7 @@ Route::get('/', [PageController::class,'home']);
 |
 */
 
-Route::prefix('controls')->name('controls.')->middleware(['auth'])->group(function () {
+Route::prefix('controls')->name('controls.')->middleware(['auth:admin'])->group(function () {
     Route::get('/', ['App\Http\Controllers\Controls\PageController','home'])->name('home');
 });
 
@@ -84,8 +85,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('/sessions', function (){
+Route::get('/sessions', function () {
     dump(session()->all());
+});
+
+Route::get('/auth/user', function () {
+    $user = Auth::guard('web')->user();
+    dump($user);
 });
 
 require __DIR__.'/auth.php';
